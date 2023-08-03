@@ -1,0 +1,67 @@
+{% load static %}
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'users/styles.css' %}" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="shadow-xl">
+      <div class="px-4 mx-auto">
+        <div class="flex justify-between">
+          <!-- website logo -->
+          <div>
+            <a href="" class="flex">
+              <img
+                class="h-8 w-8 mr-2"
+                src="{% static  'users/images/social.png'%}"
+                alt=""
+              />
+              <span class="py-1 font-semibold text-lg text-gray-400"
+                >Photo App</span
+              >
+            </a>
+          </div>
+          <div class="space-x-1">
+            <div class="flex items-center">
+              {% if request.user.is_authenticated%}
+              <a
+                href="{% url 'logout'%}"
+                class="py-2 px-2 text-gray-500 font-semibold"
+                >Logout</a
+              >
+              <a
+                href="{% url 'home'%}"
+                class="py-2 px-2 text-gray-500 font-semibold"
+                >Home</a
+              >
+              <a href="{%url 'profile'%}">
+                <img
+                  src="{{get_profile.photo.url}}"
+                  alt="user photo"
+                  class="w-10 h-10 rounded-full object-cover mr-4"
+                />
+              </a>
+              <a href="{%url 'profile'%}">
+                <h3 class="text-lg font-semibold">{{curr_user}}</h3>
+              </a>
+            </div>
+            {% else %}
+            <a
+              href="{% url 'login'%}"
+              class="py-2 px-2 text-gray-500 font-semibold"
+              >Login</a
+            >
+            {% endif %}
+          </div>
+          <!-- website items -->
+        </div>
+      </div>
+    </nav>
+
+    {% block body %} {% endblock%}
+  </body>
+</html>
